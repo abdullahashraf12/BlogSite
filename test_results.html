@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .test-suite {
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .test-case {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .test-case h2 {
+            margin-top: 0;
+        }
+        .test-case p {
+            margin: 5px 0;
+        }
+        .success {
+            color: green;
+        }
+        .failure {
+            color: red;
+        }
+        .commands {
+            margin-top: 10px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .commands p {
+            margin: 5px 0;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Report</h1>
+
+    <div class="test-suite">
+        <h2>Unit Tests</h2>
+
+        <div class="test-case success">
+            <h3>AuthenticationTestCase</h3>
+            <p>Tests passed successfully.</p>
+            <div class="commands">
+                <h4>Commands:</h4>
+                <p>coverage run --source='.' manage.py test userauths.Test.User_Authentication_Test.AuthenticationTestCase</p>
+
+            </div>
+        </div>
+
+        <div class="test-case success">
+            <h3>ModelsTestCase</h3>
+            <p>Tests passed successfully.</p>
+            <div class="commands">
+                <h4>Commands:</h4>
+                <p>coverage run --source='.' manage.py test userauths.Test.ModelsTest.ModelsTestCase</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="test-suite">
+        <h2>Integration Tests</h2>
+
+        <div class="test-case success">
+            <h3>CRUDTestCase</h3>
+            <p>Tests passed successfully.</p>
+            <div class="commands">
+                <h4>Commands:</h4>
+                <p>coverage run --source='.' manage.py test blogApp.Test.CRUD_Operations_Test.CRUDTestCase</p>
+            </div>
+        </div>
+
+        <div class="test-case success">
+            <h3>APITestCase</h3>
+            <p>Tests passed successfully.</p>
+            <div class="commands">
+                <h4>Commands:</h4>
+                <p>coverage run --source='.' manage.py test blogApp.Test.Django_REST_Frameworks_APIClient_Test.APITestCase</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
