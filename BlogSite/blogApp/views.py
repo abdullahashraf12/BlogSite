@@ -42,7 +42,6 @@ def home(request):
 
 
 
-# @login_required
 def create_post(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -93,7 +92,6 @@ def create_post(request):
 
 
 
-# @login_required
 def update_post(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(Post, id=post_id)
@@ -129,7 +127,6 @@ def update_post(request, post_id):
         return redirect('blogApp:home')
 
 
-# @login_required
 def delete_post(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(Post, id=post_id)
@@ -146,7 +143,8 @@ def delete_post(request, post_id):
             return redirect('blogApp:home')  # Redirect to home or any other appropriate page after deletion
     
     return render(request, 'delete_post.html', {'post': post})
-# @login_required
+
+
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
@@ -155,7 +153,8 @@ def post_detail(request, post_id):
         return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
     else:
         return render(request, 'post_detail.html',{'post': post, 'comments': comments,})
-# @login_required
+
+
 def create_comment(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(Post, id=post_id)
@@ -192,7 +191,6 @@ def update_comment(request, comment_id):
         
     return render(request, 'update_comment.html', {'form': form, 'comment': comment})
 
-# @login_required
 def delete_comment(request, comment_id):
     if request.user.is_authenticated :
         comment = get_object_or_404(Comment, id=comment_id)
