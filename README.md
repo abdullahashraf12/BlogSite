@@ -59,7 +59,6 @@ coverage html
 cd htmlcov
 python -m http.server
 ```
-## Feel Free To Reach Out 
 
 ## Deployment Instructions
 Here Are Some Links That Helped In Deploying
@@ -68,4 +67,5 @@ Here Are Some Links That Helped In Deploying
 3rd "https://medium.com/code-with-muh/deploy-django-application-on-ec2-with-postgresql-s3-domain-and-ssl-setup-e21143317223" 
 4th "https://a4u.medium.com/deploy-django-with-nginx-gunicorn-and-ssl-certificate-ce7d037c7507"
 
+## Feel Free To Reach Out 
 Feel Free To Contact Me : abdullah.ashraf.abdelraouf@gmail.com
