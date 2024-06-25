@@ -1,0 +1,9 @@
+coverage run --source='.' manage.py test userauths.Test.User_Authentication_Test.AuthenticationTestCase
+coverage run --source='.' manage.py test blogApp.Test.CRUD_Operations_Test.CRUDTestCase
+coverage run --source='.' manage.py test blogApp.Test.Django_REST_Frameworks_APIClient_Test.APITestCase
+coverage run --source='.' manage.py test blogApp.Test.ModelsTest.ModelsTestCase
+
+coverage html
+
+cd htmlcov
+python -m http.server
