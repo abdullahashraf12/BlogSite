@@ -118,7 +118,6 @@ def update_post(request, post_id):
                 post.content = request.POST.get('content', '')
                 post.save()
                 messages.error(request, 'Form is not valid. Please correct the errors.')
-                print("heeeeeeeeeeeeeeeeeeeeeeeer")
                 return redirect('blogApp:home')
             
 
