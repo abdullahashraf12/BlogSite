@@ -9,7 +9,13 @@
     <!-- Include any necessary CSS files or stylesheets -->
 </head>
 <body>
+    {% if messages %}
+    {% for message in messages %}
+        <div>{{ message }}</div>
+    {% endfor %}
+{% endif %}
     <div class="container">
+        
         <h2>Create Comment</h2>
         <form method="post">
             {% csrf_token %}

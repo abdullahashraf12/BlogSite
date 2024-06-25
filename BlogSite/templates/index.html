@@ -107,6 +107,11 @@ body {
 <div>
   <!-- Navigation for CRUD operations -->
   <h2>Manage Posts</h2>
+  {% if messages %}
+  {% for message in messages %}
+      <div>{{ message }}</div>
+  {% endfor %}
+{% endif %}
   <ul style="list-style-type: none; padding: 0; margin: 0;">
     <div style="display: inline-block; vertical-align: top; margin-right: 20px;">
       <h3>Categories</h3>

@@ -8,6 +8,11 @@
 </head>
 <body>
     <h2>Register</h2>
+    {% if messages %}
+    {% for message in messages %}
+        <div>{{ message }}</div>
+    {% endfor %}
+{% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
