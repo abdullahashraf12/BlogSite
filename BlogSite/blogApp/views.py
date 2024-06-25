@@ -95,37 +95,39 @@ def create_post(request):
 
 # @login_required
 def update_post(request, post_id):
-    
-    post = get_object_or_404(Post, id=post_id)
-    if request.user.profile != post.author:
-        messages.error(request, 'You are not authorized to update this post.')
-        time.sleep(2)
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, id=post_id)
+        if request.user.profile != post.author:
+            messages.error(request, 'You are not authorized to update this post.')
+            time.sleep(2)
 
-        return redirect('blogApp:post_detail', post_id=post.id)
-    
-    if request.method == 'POST':
+            return redirect('blogApp:post_detail', post_id=post.id)
+        
+        if request.method == 'POST':
 
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
 
-            form.save()
-            messages.success(request, 'Post updated successfully!')
-            return redirect('blogApp:home')
+                form.save()
+                messages.success(request, 'Post updated successfully!')
+                return redirect('blogApp:home')
+
+            else:
+                print("method reached update")
+                post.title = request.POST.get('title', '')
+                post.content = request.POST.get('content', '')
+                post.save()
+                messages.error(request, 'Form is not valid. Please correct the errors.')
+                print("heeeeeeeeeeeeeeeeeeeeeeeer")
+                return redirect('blogApp:home')
+            
 
         else:
-            print("method reached update")
-            post.title = request.POST.get('title', '')
-            post.content = request.POST.get('content', '')
-            post.save()
-            messages.error(request, 'Form is not valid. Please correct the errors.')
-            print("heeeeeeeeeeeeeeeeeeeeeeeer")
-            return redirect('blogApp:home')
+            form = PostForm(instance=post)
         
-
+            return render(request, 'update_post.html', {'form': form, 'post': post})
     else:
-        form = PostForm(instance=post)
-    
-        return render(request, 'update_post.html', {'form': form, 'post': post})
+        return redirect('blogApp:home')
 
 
 # @login_required

@@ -10,7 +10,8 @@ class Command(BaseCommand):
         if superuser:
             # Check if superuser already has a profile
             if not hasattr(superuser, 'profile'):
-                Profile.objects.create(user=superuser, bio="Superuser", profile_picture=None)
+                model=Profile(user=superuser, bio="Superuser", profile_picture=None)
+                model.save()
                 self.stdout.write(self.style.SUCCESS('Profile created for superuser'))
             else:
                 self.stdout.write(self.style.WARNING('Superuser already has a profile'))
