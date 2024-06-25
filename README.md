@@ -37,4 +37,26 @@ Navigate to Folder BlogSite and then do these commands in terminal (Ensure Docke
 docker-compose build
 docker-compose up
 ```
+## Test Resuults Commands
+```bash
+coverage run --source='.' manage.py test userauths.Test.User_Authentication_Test.AuthenticationTestCase
+coverage run --source='.' manage.py test blogApp.Test.CRUD_Operations_Test.CRUDTestCase
+coverage run --source='.' manage.py test blogApp.Test.Django_REST_Frameworks_APIClient_Test.APITestCase
+coverage run --source='.' manage.py test blogApp.Test.ModelsTest.ModelsTestCase
+
+coverage html
+
+cd htmlcov
+python -m http.server
+
+```
+## Checkout Testing Files 
+For Details Files are (TestDetails.docx , test_results.html ) & 
+you can use the commands below (Ensure Run It Inside BlogSite Folder )
+```bash
+
+coverage html
+cd htmlcov
+python -m http.server
+```
 Feel Free To Contact Me : abdullah.ashraf.abdelraouf@gmail.com
