@@ -95,6 +95,7 @@ def create_post(request):
 
 # @login_required
 def update_post(request, post_id):
+    
     post = get_object_or_404(Post, id=post_id)
     if request.user.profile != post.author:
         messages.error(request, 'You are not authorized to update this post.')
