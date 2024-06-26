@@ -5,8 +5,6 @@ from django.contrib.auth import authenticate
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
-
-
     class Meta:
         model = User
         fields = ['email', 'username', 'password1', 'password2', ]
@@ -42,7 +40,9 @@ class UserLoginForm(forms.Form):
         if email and password:
             user = authenticate(email=email, password=password)
             if not user:
+                
                 raise forms.ValidationError('Invalid email or password.')
+
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

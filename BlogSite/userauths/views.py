@@ -3,10 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm, ProfileUpdateForm
-from userauths.models import Profile
-
-
-
+from userauths.models import Profile , User
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -60,14 +57,20 @@ def login_user(request):
             form = UserLoginForm(request.POST)
             if form.is_valid():
                 email = form.cleaned_data.get('email')
-                password = form.cleaned_data.get('password')
-                user = authenticate(request, username=email, password=password)
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, f'Welcome back, {user.username}!')
-                    return redirect('blogApp:home')  # Replace 'home' with your desired redirect URL
+                my_user = User.objects.get(email=email)
+                if my_user is not None:
+                    password = form.cleaned_data.get('password')
+                    user = authenticate(request, username=email, password=password)
+                    if user is not None:
+                        login(request, user)
+                        messages.success(request, f'Welcome back, {user.username}!')
+                        return redirect('blogApp:home')  # Replace 'home' with your desired redirect URL
+                    else:
+                        messages.error(request, 'Invalid email or password. Please try again.')
                 else:
-                    messages.error(request, 'Invalid email or password. Please try again.')
+                    messages.error(request, 'User Not Exist. Please try again.')
+                    return redirect('blogApp:home')  # Replace 'home' with your desired redirect URL
+
         else:
             form = UserLoginForm()
         return render(request, 'login.html', {'form': form})
