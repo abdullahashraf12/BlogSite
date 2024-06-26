@@ -5,20 +5,106 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="email"],
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="file"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h2>Register</h2>
-    {% if messages %}
-    {% for message in messages %}
-        <div>{{ message }}</div>
-    {% endfor %}
-{% endif %}
+
     <form method="POST" enctype="multipart/form-data">
+        {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
         {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ user_form.email }}
+        </div>
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ user_form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_password1">Password:</label>
+            {{ user_form.password1 }}
+        </div>
+        <div class="form-group">
+            <label for="id_password2">Confirm Password:</label>
+            {{ user_form.password2 }}
+        </div>
+        <div class="form-group">
+            <label for="bio">Bio</label>
+            {{ profile_form.bio }}
+        </div>
+        
+
+        <div class="form-group">
+            <label for="id_profile_picture">Profile Picture:</label>
+            {{ profile_form.profile_picture }}
+            
+        </div>
         <button type="submit">Register</button>
     </form>
-    <p>Already have an account? <a href="{% url 'userauths:login' %}">Login here</a></p>
+    <p>Already have an account? <a href="{% url 'userauths:login' %}" style="color: #007bff; text-decoration: none;">Login here</a></p>
 </body>
 </html>
