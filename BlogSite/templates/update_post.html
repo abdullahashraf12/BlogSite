@@ -1,24 +1,105 @@
-<!-- update_post.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Post</title>
-    <!-- Include any necessary CSS files or stylesheets -->
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            overflow: hidden; /* Prevents box-shadow clipping */
+        }
+        h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4CAF50;
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    {% if messages %}
-    {% for message in messages %}
-        <div>{{ message }}</div>
-    {% endfor %}
-{% endif %}
     <div class="container">
         <h2>Update Post</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <label for="id_title">Title:</label>
+            {{ form.title }}
+            
+            <label for="id_content">Content:</label>
+            {{ form.content }}
+            
+            <label for="id_categories">Categories:</label>
+            {{ form.categories }}
+            
+            <label for="id_tags">Tags:</label>
+            {{ form.tags }}
+            
             <button type="submit">Update Post</button>
         </form>
     </div>

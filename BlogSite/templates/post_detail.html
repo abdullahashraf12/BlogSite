@@ -82,10 +82,21 @@
     <p>Updated at: {{ post.updated_at }}</p>
 </div>
 {% if messages %}
-{% for message in messages %}
-    <div>{{ message }}</div>
-{% endfor %}
+  {% for message in messages %}
+    <div style="padding: 10px; margin-bottom: 10px; color: white;
+                {% if message.tags == 'error' %}
+                  background-color: #FF6347; /* Red */
+                {% elif message.tags == 'success' %}
+                  background-color: #32CD32; /* Green */
+                {% elif message.tags == 'info' %}
+                  background-color: #FFFF00; /* Yellow */
+                {% endif %}
+                border: 1px solid #ccc;">
+      {{ message }}
+    </div>
+  {% endfor %}
 {% endif %}
+
 <div class="comments">
     <h3>Comments</h3>
     {% if comments %}
