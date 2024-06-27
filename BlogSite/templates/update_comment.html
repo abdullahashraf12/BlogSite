@@ -57,9 +57,19 @@
 <body>
     {% if messages %}
     {% for message in messages %}
-        <div class="message">{{ message }}</div>
+      <div style="padding: 10px; margin-bottom: 10px; color: white;
+                  {% if message.tags == 'error' %}
+                    background-color: #FF6347; /* Red */
+                  {% elif message.tags == 'success' %}
+                    background-color: #32CD32; /* Green */
+                  {% elif message.tags == 'info' %}
+                    background-color: #FFFF00; /* Yellow */
+                  {% endif %}
+                  border: 1px solid #ccc;">
+        {{ message }}
+      </div>
     {% endfor %}
-    {% endif %}
+  {% endif %}
     <div class="container">
         <h2>Update Comment</h2>
         <form method="post">
