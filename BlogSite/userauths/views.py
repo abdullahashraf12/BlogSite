@@ -80,20 +80,38 @@ def login_user(request):
             form = UserLoginForm(request.POST)
             if form.is_valid():
                 email = form.cleaned_data.get('email')
-                print("Cleanned Email "+ str(email))
-                try:
+                password = form.cleaned_data.get('password')
 
-                    password = form.cleaned_data.get('password')
-                    user = authenticate(request, username=email, password=password)
-                    if user is not None:
+                print("Cleanned Email "+ str(email))
+
+                try:
+                    # Attempt to get the user object
+                    user = User.objects.get(email=email)
+                    
+                    # Attempt to authenticate the user
+                    user_auth = authenticate(request, username=email, password=password)
+
+                    if user is not None and user_auth is not None and user == user_auth:
+                        # User exists and credentials are correct
                         login(request, user)
                         messages.success(request, f'Welcome back, {user.username}!')
-                        return redirect('blogApp:home')  # Replace 'home' with your desired redirect URL
+                        return redirect('blogApp:home')  # Redirect to home or any other desired URL after successful login
                     else:
-                        messages.error(request, 'Invalid email or password. Please try again.')
+                        # Password is incorrect
+                        messages.error(request, 'Invalid password. Please try again.')
+                        return redirect('userauths:login')  # Redirect back to login page
                 except ObjectDoesNotExist:
-                        messages.error(request, 'User Not Exist. Please try again.')
-                        return redirect('userauths:login')
+                    # Handle the case where User object does not exist
+                    messages.error(request, 'User does not exist. Please try again.')
+                    return redirect('userauths:login')  # Redirect back to login page
+
+
+            else:
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f'{field}: {error}')
+                                # messages.error(request, 'Invalid email or password. Please try again.')
+
         else:
             form = UserLoginForm()
         return render(request, 'login.html', {'form': form})
