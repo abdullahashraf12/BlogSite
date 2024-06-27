@@ -29,9 +29,7 @@ def register_user(request):
             
             if user_form.is_valid() and profile_form.is_valid():
                 email = user_form.cleaned_data['email']
-                username = user_form.cleaned_data['username']
-                password = user_form.cleaned_data['password1']  # or user_form.cleaned_data['password2']
-                
+
                 # Check if email already exists
                 if User.objects.filter(email=email).exists():
                     messages.error(request, 'An account with this email address already exists. Please log in.')
@@ -54,8 +52,9 @@ def register_user(request):
                 # Form is not valid, handle the error message
                 if User.objects.filter(email=user_form.data['email']).exists():
                     messages.error(request, 'An account with this email address already exists. Please log in.')
-                else:
-                    messages.error(request, 'Form validation error. Please check the form fields.')
+                for field, errors in user_form.errors.items():
+                    for error in errors:
+                        messages.error(request, f'{field}: {error}')
         
         else:
             user_form = UserRegistrationForm()
@@ -70,58 +69,6 @@ def register_user(request):
 
 
 
-
-
-
-
-# def register_user(request):
-#     if request.user.is_authenticated:
-#         return redirect('blogApp:home')  # Adjust this to your profile view name or URL
-#     else:
-#         if request.method == 'POST':
-#             user_form = UserRegistrationForm(request.POST)
-#             profile_form = ProfileUpdateForm(request.POST, request.FILES)
-#             try:
-#                 if user_form.is_valid() and profile_form.is_valid():
-
-#                     email = user_form.cleaned_data['email']
-#                     print(email)
-#                     print(email)
-#                     print(email)
-#                     print(email)
-#                     my_user = User.objects.get(email=str(email))
-#                     user = user_form.save()
-
-#                     # Extract profile form data
-#                     bio = profile_form.cleaned_data.get('bio', None)
-#                     profile_picture = profile_form.cleaned_data.get('profile_picture', None)
-
-#                     # Create Profile object linked to the user
-#                     Profile.objects.create(user=user, bio=bio, profile_picture=profile_picture)
-
-#                     # Log in the user after successful registration
-#                     login(request, user)
-
-#                     # Redirect to home or profile page
-#                     messages.success(request, f'Account created for {user.username}! You are now logged in.')
-#                     return redirect('blogApp:home') 
-#                 else:
-#                     messages.error(request, 'Form validation error. Please check the form fields.')
-#                     return redirect('userauths:register')
-#             except ObjectDoesNotExist:
-#                     messages.error(request, 'Form validation error. Please check the form fields.')
-#                     return redirect('userauths:login')
-#  # Adjust this to your profile view name or URL
-            
-#         else:
-#             user_form = UserRegistrationForm()
-#             profile_form = ProfileUpdateForm()
-
-#         context = {
-#             'user_form': user_form,
-#             'profile_form': profile_form,
-#         }
-#         return render(request, 'register.html', context)
 
 
 

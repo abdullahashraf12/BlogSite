@@ -227,8 +227,10 @@ body {
     
     {% if request.user.is_authenticated %}
 
-    <li><a href="{% url 'blogApp:create_post' %}">Create Post</a></li>
-    {% endif %}
+    <li style="background-color: #f0f0f0; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px;">
+      <a href="{% url 'blogApp:create_post' %}" style="text-decoration: none; font-weight: bold; background-color: green; color: white; font-size: 25px; display: inline-block; padding: 10px 20px;">Create Post</a>
+  </li>
+      {% endif %}
     <!-- Assuming post_id is available dynamically -->
     {% for post in posts %}
     <div class="post-container" data-post_tags='[{% for tag in post.post_tags %}"{{ tag.id }}"{% if not forloop.last %},{% endif %}{% endfor %}]' data-post_categories='[{% for category in post.post_categories %}"{{ category.id }}"{% if not forloop.last %},{% endif %}{% endfor %}]' data-post_title="{{ post.title }}" data-post_contain="{{ post.content }}" id="{{ post.id }}" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">

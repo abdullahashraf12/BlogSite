@@ -43,9 +43,15 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'email']
 
 class ProfileUpdateForm(forms.ModelForm):
+    bio = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter your bio'}),
+        required=True,  # Set the field as required
+    )
+
+    profile_picture = forms.ImageField(
+        required=True,  # Set the field as required
+    )
+
     class Meta:
         model = Profile
         fields = ['bio', 'profile_picture']
-        widgets = {
-            'bio': forms.TextInput(attrs={'placeholder': 'Enter your bio'}),
-        }
